@@ -96,23 +96,23 @@ elif args.dataset == 'butterfly':
 
 elif args.dataset == 'butterfly-easy':
     args.result_dir = osp.join(args.result_dir,'butterfly-easy')
-    images_list_path = osp.join(args.result_dir,'VLM4Bio/datasets/Butterfly/metadata/imagelist_easy.txt')
-    image_dir = osp.join(args.result_dir,'VLM4Bio/datasets/Butterfly/images')
-    img_metadata_path = osp.join(args.result_dir,'VLM4Bio/datasets/Butterfly/metadata/metadata_easy.csv')
+    images_list_path = osp.join(args.data_dir,'VLM4Bio/datasets/Butterfly/metadata/imagelist_easy.txt')
+    image_dir = osp.join(args.data_dir,'VLM4Bio/datasets/Butterfly/images')
+    img_metadata_path = osp.join(args.data_dir,'VLM4Bio/datasets/Butterfly/metadata/metadata_easy.csv')
     organism = 'butterfly'
 
 elif args.dataset == 'butterfly-medium':
     args.result_dir = osp.join(args.result_dir,'butterfly-medium')
-    images_list_path = osp.join(args.result_dir,'VLM4Bio/datasets/Butterfly/metadata/imagelist_medium.txt')
-    image_dir = osp.join(args.result_dir,'VLM4Bio/datasets/Butterfly/images')
-    img_metadata_path = osp.join(args.result_dir,'VLM4Bio/datasets/Butterfly/metadata/metadata_medium.csv')
+    images_list_path = osp.join(args.data_dir,'VLM4Bio/datasets/Butterfly/metadata/imagelist_medium.txt')
+    image_dir = osp.join(args.data_dir,'VLM4Bio/datasets/Butterfly/images')
+    img_metadata_path = osp.join(args.data_dir,'VLM4Bio/datasets/Butterfly/metadata/metadata_medium.csv')
     organism = 'butterfly'
 
 elif args.dataset == 'butterfly-hard':
     args.result_dir = osp.join(args.result_dir,'butterfly-hard')
-    images_list_path = osp.join(args.result_dir,'VLM4Bio/datasets/Butterfly/metadata/imagelist_hard.txt')
-    image_dir = osp.join(args.result_dir,'VLM4Bio/datasets/Butterfly/images')
-    img_metadata_path = osp.join(args.result_dir,'VLM4Bio/datasets/Butterfly/metadata/metadata_hard.csv')
+    images_list_path = osp.join(args.data_dir,'VLM4Bio/datasets/Butterfly/metadata/imagelist_hard.txt')
+    image_dir = osp.join(args.data_dir,'VLM4Bio/datasets/Butterfly/images')
+    img_metadata_path = osp.join(args.data_dir,'VLM4Bio/datasets/Butterfly/metadata/metadata_hard.csv')
     organism = 'butterfly'
 
 
