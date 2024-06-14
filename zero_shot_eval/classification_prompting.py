@@ -69,9 +69,6 @@ args.result_dir = os.path.join(args.result_dir, args.technique, 'classification'
 
 os.makedirs(args.result_dir, exist_ok=True)
 
-print(args.result_dir)
-
-
 print("Arguments Provided: ", args)
 
 if args.model == 'gpt-4v':
