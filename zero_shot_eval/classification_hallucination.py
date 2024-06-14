@@ -43,21 +43,21 @@ args = parser.parse_args()
 
 
 if args.dataset == 'fish-prompting':
-    args.result_dir = osp.join(args.result_dir, 'hallucination_results', 'fish-prompting')
+    args.result_dir = osp.join(args.result_dir, 'hallucination_test_results', 'fish-prompting')
     images_list_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Fish/metadata/imagelist_prompting.txt')
     image_dir = osp.join(args.data_dir, 'VLM4Bio/datasets/Fish/images')
     img_metadata_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Fish/metadata/metadata_prompting.csv')
     organism = 'fish'
 
 elif args.dataset == 'bird-prompting':
-    args.result_dir = osp.join(args.result_dir, 'hallucination_results', 'bird-prompting')
+    args.result_dir = osp.join(args.result_dir, 'hallucination_test_results', 'bird-prompting')
     images_list_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Bird/metadata/imagelist_prompting.txt')
     image_dir = osp.join(args.data_dir, 'VLM4Bio/datasets/Bird/images')
     img_metadata_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Bird/metadata/metadata_prompting.csv')
     organism = 'bird'
 
 elif args.dataset == 'butterfly-prompting':
-    args.result_dir = osp.join(args.result_dir, 'hallucination_results', 'butterfly-prompting')
+    args.result_dir = osp.join(args.result_dir, 'hallucination_test_results', 'butterfly-prompting')
     images_list_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Butterfly/metadata/imagelist_prompting.txt')
     image_dir = osp.join(args.data_dir, 'VLM4Bio/datasets/Butterfly/images')
     img_metadata_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Butterfly/metadata/metadata_prompting.csv')
