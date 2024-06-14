@@ -1,6 +1,3 @@
-# no class implementation /data/VLM4Bio/datasets
-# environment: openclip
-
 import json
 from tqdm import tqdm 
 import argparse
@@ -9,62 +6,46 @@ import pandas as pd
 import numpy as np
 import pdb
 import warnings
+import os.path as osp
 warnings.filterwarnings('ignore')
-
-##################################################################################################################################################
 import sys
 current_dir = os.path.dirname(__file__)
 parent_dir = os.path.dirname(current_dir)
 sys.path.insert(1, parent_dir)
-##################################################################################################################################################
-
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--model", "-m", type=str, default='bioclip', help="")
 parser.add_argument("--task_option", "-t", type=str, default='direct', help="task option: 'direct', 'selection' ")
-# parser.add_argument("--result_dir", "-o", type=str, default='/home/marufm/lmm-projects/LMM/results/classification', help="path to output")
+parser.add_argument("--result_dir", "-o", type=str, default='results/', help="path to output")
+parser.add_argument("--data_dir", "-o", type=str, default='data/', help="path to output")
 parser.add_argument("--num_queries", "-n", type=int, default=-1, help="number of images to query from dataset")
 parser.add_argument("--chunk_id", "-c", type=int, default=0, help="0, 1, 2, 3, 4, 5, 6, 7, 8, 9")
-
-# updated
-parser.add_argument("--dataset", "-d", type=str, default='fish-500', help="dataset option: 'fish-10k', 'fish-500', 'bird', 'butterfly' ")
+parser.add_argument("--dataset", "-d", type=str, default='fish', help="dataset option: 'fish', 'bird', 'butterfly' ")
 
 args = parser.parse_args()
 
-if args.dataset == 'fish-10k':
+if args.dataset == 'fish':
 
-    args.result_dir = '/data/VLM4Bio/results/fish-10k'
-    
-    images_list_path = '/data/VLM4Bio/datasets/Fish/metadata/imagelist_10k.txt'
-    image_dir = '/data/VLM4Bio/datasets/Fish/images'
-    img_metadata_path = '/data/VLM4Bio/datasets/Fish/metadata/metadata_10k.csv'
-    organism = 'fish'
-
-elif args.dataset == 'fish-500':
-
-    args.result_dir = '/data/VLM4Bio/results/fish-500'
-    
-    images_list_path = '/data/VLM4Bio/datasets/Fish/metadata/imagelist_500.txt'
-    image_dir = '/data/VLM4Bio/datasets/Fish/images'
-    img_metadata_path = '/data/VLM4Bio/datasets/Fish/metadata/metadata_500.csv'
+    args.result_dir = osp.join(args.result_dir, 'fish')
+    images_list_path = osp.join(args.data_dir, 'datasets/Fish/metadata/imagelist_10k.txt')
+    image_dir = osp.join(args.data_dir, 'datasets/Fish/images')
+    img_metadata_path = osp.join(args.data_dir, 'datasets/Fish/metadata/metadata_10k.csv')
     organism = 'fish'
 
 elif args.dataset == 'bird':
 
-    args.result_dir = '/data/VLM4Bio/results/bird'
-    
-    images_list_path = '/data/VLM4Bio/datasets/Bird/metadata/bird_imagelist_10k.txt'
-    image_dir = '/data/VLM4Bio/datasets/Bird/images'
-    img_metadata_path = '/data/VLM4Bio/datasets/Bird/metadata/bird_metadata_10k.csv'
+    args.result_dir = osp.join(args.result_dir, 'bird')
+    images_list_path = osp.join(args.data_dir, 'datasets/Bird/metadata/imagelist_10k.txt')
+    image_dir = osp.join(args.data_dir, 'datasets/Bird/images')
+    img_metadata_path = osp.join(args.data_dir, 'datasets/Bird/metadata/metadata_10k.csv')
     organism = 'bird'
 
 elif args.dataset == 'butterfly':
 
-    args.result_dir = '/data/VLM4Bio/results/butterfly'
-    
-    images_list_path = '/data/VLM4Bio/datasets/Butterfly/metadata/imagelist.txt'
-    image_dir = '/data/VLM4Bio/datasets/Butterfly/images'
-    img_metadata_path = '/data/VLM4Bio/datasets/Butterfly/metadata/metadata.csv'
+    args.result_dir = osp.join(args.result_dir, 'butterfly')
+    images_list_path = osp.join(args.data_dir, 'datasets/Butterfly/metadata/imagelist_10k.txt')
+    image_dir = osp.join(args.data_dir, 'datasets/Butterfly/images')
+    img_metadata_path = osp.join(args.data_dir, 'datasets/Butterfly/metadata/metadata_10k.csv')
     organism = 'butterfly'
 
 
@@ -73,25 +54,16 @@ args.result_dir = os.path.join(args.result_dir, 'classification' ,args.task_opti
 os.makedirs(args.result_dir, exist_ok=True)
 
 
-print("Arguments: ", args)
+print("Arguments Provided: ", args)
 
-# images_list_path = '/projects/ml4science/maruf/Fish_Data/bg_removed/metadata/sample_images.txt'
-# image_dir = '/projects/ml4science/maruf/Fish_Data/bg_removed/INHS'
-# img_metadata_path = '/projects/ml4science/maruf/Fish_Data/bg_removed/metadata/INHS.csv'
 
 with open(images_list_path, 'r') as file:
     lines = file.readlines()
 images_list = [line.strip() for line in lines]
 
-
-# breakpoint()
-
 img_metadata_df = pd.read_csv(img_metadata_path)
 species_list = img_metadata_df['scientificName'].unique().tolist()
 species_list = [sp for sp in species_list if sp==sp]
-
-
-# breakpoint()
 
 def get_options(options):
 
@@ -116,7 +88,10 @@ def get_options(options):
     result.append(sp_name)
     
     return result
-##########################################################################################################################
+
+
+
+
 import open_clip
 from PIL import Image
 import torch 
@@ -129,7 +104,7 @@ text = tokenizer(species_list).to(device)
 model = model.eval()
 model = model.to(device)
 
-##########################################################################################################################
+
 from vlm_datasets.species_dataset import SpeciesClassificationDataset
 import jsonlines
 import json
@@ -240,9 +215,6 @@ for idx in tqdm(range(args.num_queries)):
         pred_sp = sp_list[top1_idx[0].item()] 
         result['target-class'] = target_sp
         result['output'] = pred_sp
-        
-        # breakpoint()
-
 
     if pred_sp == target_sp:
         correct_prediction += 1
@@ -254,60 +226,8 @@ for idx in tqdm(range(args.num_queries)):
         else:
             incorrect_prediction += 1
 
-
-    # top prediction
-    # ranks = np.argsort(text_probs[0].detach().cpu().numpy())[::-1]
-    # top1_idx = ranks[:1]
-
-    # # breakpoint()
-
-    # pred_sp = species_list[top1_idx[0].item()] if args.task_option=='direct' else sp_list[top1_idx[0].item()]
-
-    # print(pred_sp, target_sp)
-    # print(text_probs[0])
-    # print(sp_list)
-    # breakpoint()
-
-    # top5_idx = ranks[:5]
-    # top5_sp = [species_list[idx] for idx in top5_idx]
-    # top5_score = [str(text_probs[0, idx].item()) for idx in top5_idx]
-
     writer.write(result)
     writer.close()
     writer = jsonlines.open(out_file_name, mode='a')
 writer.close()
 
-# print('################################################')
-# print(f'Correct Prediciton: {correct_prediction*100/args.num_queries}%')
-# print(f'Genus-only Prediciton: {partial_prediction*100/args.num_queries}%')
-# print(f'Incorrect Prediciton: {incorrect_prediction*100/args.num_queries}%')
-# print('################################################')
-
-    # target_species = batch['target_outputs'][args.task_option]
-    # questions = batch['question_templates'][args.task_option] 
-    # options = batch['option_templates'][args.task_option] 
-    # answer_template = batch['answer_templates'][args.task_option] 
-
-    # instruction = f"{questions} {options} {answer_template}."
-
-    # model_output = model.prompt(
-    #     prompt_text= instruction,
-    #     image_path = batch['image_path'],
-    # )
-
-    # result['question'] = instruction
-    # result['target-class'] = target_species
-
-    # if model_output is None:
-    #     response = "No response received."
-    # else:
-    #     response = model_output['response']
-    
-    # result["output"] = response
-
-    # result["image-path"] = batch['image_path']
-    # result["option-gt"] = batch['option_gt'][args.task_option]
-
-#     writer.write(result)
-
-# writer.close()
