@@ -32,34 +32,89 @@ parser.add_argument("--result_dir", "-o", type=str, default='results/', help="pa
 parser.add_argument("--data_dir", "-o", type=str, default='data/', help="path to datasets")
 parser.add_argument("--num_queries", "-n", type=int, default=-1, help="number of images to query from dataset")
 parser.add_argument("--chunk_id", "-c", type=int, default=0, help="0, 1, 2, 3, 4, 5, 6, 7, 8, 9")
-parser.add_argument("--dataset", "-d", type=str, default='fish', help="dataset option: 'fish', 'bird', 'butterfly' ")
-parser.add_argument("--llava_model_dir", "-l", type=str, default='/projects/ml4science/maruf/new_llava_models/')
+parser.add_argument("--dataset", "-d", type=str, default='fish', help="dataset option: 'fish', 'bird', 'butterfly', 'fish-easy', 'fish-medium', 'bird-easy', 'bird-medium', 'butterfly-easy', 'butterfly-medium', 'butterfly-hard' ")
+parser.add_argument("--llava_model_dir", "-l", type=str, default='/projects/ml4science/maruf/new_llava_models/') # We saved the LLaVA-v1.5-7b and LLaVA-v1.5-13b models in this path.
 
 args = parser.parse_args()
 
-if args.dataset == 'fish':
+# Fish Dataset
 
+if args.dataset == 'fish':
     args.result_dir = osp.join(args.result_dir, 'fish')
     images_list_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Fish/metadata/imagelist_10k.txt')
     image_dir = osp.join(args.data_dir, 'VLM4Bio/datasets/Fish/images')
     img_metadata_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Fish/metadata/metadata_10k.csv')
     organism = 'fish'
 
-elif args.dataset == 'bird':
+elif args.dataset == 'fish-easy':
+    args.result_dir = osp.join(args.result_dir, 'fish-easy')
+    images_list_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Fish/metadata/imagelist_easy.txt')
+    image_dir = osp.join(args.data_dir, 'VLM4Bio/datasets/Fish/images')
+    img_metadata_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Fish/metadata/metadata_easy.csv')
+    organism = 'fish'
 
+elif args.dataset == 'fish-medium':
+    args.result_dir = osp.join(args.result_dir, 'fish-medium')
+    images_list_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Fish/metadata/imagelist_medium.txt')
+    image_dir = osp.join(args.data_dir, 'VLM4Bio/datasets/Fish/images')
+    img_metadata_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Fish/metadata/metadata_medium.csv')
+    organism = 'fish'
+
+
+# Bird Dataset
+
+elif args.dataset == 'bird':
     args.result_dir = osp.join(args.result_dir, 'bird')
     images_list_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Bird/metadata/imagelist_10k.txt')
     image_dir = osp.join(args.data_dir, 'VLM4Bio/datasets/Bird/images')
     img_metadata_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Bird/metadata/metadata_10k.csv')
     organism = 'bird'
 
-elif args.dataset == 'butterfly':
+elif args.dataset == 'bird-easy':
+    args.result_dir = osp.join(args.result_dir, 'bird-easy')
+    images_list_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Bird/metadata/imagelist_easy.txt')
+    image_dir = osp.join(args.data_dir, 'VLM4Bio/datasets/Bird/images')
+    img_metadata_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Bird/metadata/metadata_easy.csv')
+    organism = 'bird'
 
+elif args.dataset == 'bird-medium':
+    args.result_dir = osp.join(args.data_dir, 'bird-medium')
+    images_list_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Bird/metadata/imagelist_medium.txt')
+    image_dir = osp.join(args.data_dir, 'VLM4Bio/datasets/Bird/images')
+    img_metadata_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Bird/metadata/metadata_medium.csv')
+    organism = 'bird'
+
+
+# Butterfly Dataset
+
+elif args.dataset == 'butterfly':
     args.result_dir = osp.join(args.result_dir, 'butterfly')
     images_list_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Butterfly/metadata/imagelist_10k.txt')
     image_dir = osp.join(args.data_dir, 'VLM4Bio/datasets/Butterfly/images')
     img_metadata_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Butterfly/metadata/metadata_10k.csv')
     organism = 'butterfly'
+
+elif args.dataset == 'butterfly-easy':
+    args.result_dir = osp.join(args.result_dir,'butterfly-easy')
+    images_list_path = osp.join(args.result_dir,'VLM4Bio/datasets/Butterfly_10k/metadata/imagelist_easy.txt')
+    image_dir = osp.join(args.result_dir,'VLM4Bio/datasets/Butterfly_10k/images')
+    img_metadata_path = osp.join(args.result_dir,'VLM4Bio/datasets/Butterfly_10k/metadata/metadata_easy.csv')
+    organism = 'butterfly'
+
+elif args.dataset == 'butterfly-medium':
+    args.result_dir = osp.join(args.result_dir,'butterfly-medium')
+    images_list_path = osp.join(args.result_dir,'VLM4Bio/datasets/Butterfly_10k/metadata/imagelist_medium.txt')
+    image_dir = osp.join(args.result_dir,'VLM4Bio/datasets/Butterfly_10k/images')
+    img_metadata_path = osp.join(args.result_dir,'VLM4Bio/datasets/Butterfly_10k/metadata/metadata_medium.csv')
+    organism = 'butterfly'
+
+elif args.dataset == 'butterfly-hard':
+    args.result_dir = osp.join(args.result_dir,'butterfly-hard')
+    images_list_path = osp.join(args.result_dir,'VLM4Bio/datasets/Butterfly_10k/metadata/imagelist_hard.txt')
+    image_dir = osp.join(args.result_dir,'VLM4Bio/datasets/Butterfly_10k/images')
+    img_metadata_path = osp.join(args.result_dir,'VLM4Bio/datasets/Butterfly_10k/metadata/metadata_hard.csv')
+    organism = 'butterfly'
+
 
 args.result_dir = os.path.join(args.result_dir, 'classification' ,args.task_option)
 
