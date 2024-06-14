@@ -138,7 +138,7 @@ if args.model in ['llava-v1.5-7b', 'llava-v1.5-13b']:
     model_version = args.model                    
     model = LLaVA(
         model_name = model_version,
-        saved_model_dir = osp.join(args.llava_models, f"{model_version}.pt")
+        saved_model_dir = osp.join(args.llava_model_dir, f"{model_version}.pt")
     )
 
 if args.model in ['cogvlm-chat']:
