@@ -1,0 +1,7 @@
+{"Model": "gpt-4v", "Question-type": "selection", "correct_count": 87.4, "correct_ge_count": 1.0, "NA_count": 8.4, "incorrect_count": 3.2}
+{"Model": "gpt-4o", "Question-type": "selection", "correct_count": 97.0, "correct_ge_count": 1.2, "NA_count": 0.4, "incorrect_count": 1.4}
+{"Model": "llava-v1.5-7b", "Question-type": "selection", "correct_count": 33.4, "correct_ge_count": 1.8, "NA_count": 0.0, "incorrect_count": 64.8}
+{"Model": "llava-v1.5-13b", "Question-type": "selection", "correct_count": 41.0, "correct_ge_count": 2.2, "NA_count": 0.0, "incorrect_count": 56.8}
+{"Model": "cogvlm-chat", "Question-type": "selection", "correct_count": 44.0, "correct_ge_count": 2.0, "NA_count": 0.0, "incorrect_count": 54.0}
+{"Model": "blip-flan-xl", "Question-type": "selection", "correct_count": 25.6, "correct_ge_count": 0.0, "NA_count": 0.0, "incorrect_count": 74.4}
+{"Model": "blip-flan-xxl", "Question-type": "selection", "correct_count": 22.8, "correct_ge_count": 0.0, "NA_count": 0.0, "incorrect_count": 77.2}

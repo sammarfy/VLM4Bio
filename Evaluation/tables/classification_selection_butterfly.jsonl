@@ -1,0 +1,12 @@
+{"Model": "gpt-4v", "Question-type": "selection", "correct_count": 28.912413861979427, "correct_ge_count": 5.75252172176171, "NA_count": 54.848696694297416, "incorrect_count": 10.48636772196145}
+{"Model": "llava-v1.5-7b", "Question-type": "selection", "correct_count": 50.24468191351244, "correct_ge_count": 24.308399081194448, "NA_count": 0.0, "incorrect_count": 25.44691900529312}
+{"Model": "llava-v1.5-13b", "Question-type": "selection", "correct_count": 44.582043343653254, "correct_ge_count": 19.634475182263056, "NA_count": 0.0, "incorrect_count": 35.78348147408369}
+{"Model": "cogvlm-chat", "Question-type": "selection", "correct_count": 36.45261160491361, "correct_ge_count": 28.243283731149507, "NA_count": 0.0, "incorrect_count": 35.30410466393688}
+{"Model": "blip-flan-xl", "Question-type": "selection", "correct_count": 25.137321482073304, "correct_ge_count": 0.0, "NA_count": 0.0, "incorrect_count": 74.8626785179267}
+{"Model": "blip-flan-xxl", "Question-type": "selection", "correct_count": 28.88245281134525, "correct_ge_count": 0.0, "NA_count": 0.0, "incorrect_count": 71.11754718865475}
+{"Model": "minigpt4-vicuna-7B", "Question-type": "selection", "correct_count": 33.05702586637371, "correct_ge_count": 20.323579346849098, "NA_count": 1.0386497553180865, "incorrect_count": 45.5807450314591}
+{"Model": "minigpt4-vicuna-13B", "Question-type": "selection", "correct_count": 28.902426845101367, "correct_ge_count": 22.26106062119245, "NA_count": 0.1997403375611705, "incorrect_count": 48.63677219614501}
+{"Model": "instruct-flant5xl", "Question-type": "selection", "correct_count": 25.277139718366126, "correct_ge_count": 14.07170678118446, "NA_count": 0.0, "incorrect_count": 60.65115350044942}
+{"Model": "instruct-flant5xxl", "Question-type": "selection", "correct_count": 36.6723259762309, "correct_ge_count": 30.730050933786078, "NA_count": 0.0, "incorrect_count": 32.597623089983024}
+{"Model": "instruct-vicuna7b", "Question-type": "selection", "correct_count": 41.695795465894335, "correct_ge_count": 23.08998302207131, "NA_count": 0.0, "incorrect_count": 35.21422151203436}
+{"Model": "instruct-vicuna13b", "Question-type": "selection", "correct_count": 34.475182263058024, "correct_ge_count": 21.52202137221612, "NA_count": 0.0, "incorrect_count": 44.00279636472585}

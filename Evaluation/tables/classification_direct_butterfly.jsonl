@@ -1,0 +1,12 @@
+{"Model": "gpt-4v", "Question-type": "direct", "correct_count": 0.03929273084479371, "correct_ge_count": 0.091683038637852, "NA_count": 98.16633922724296, "incorrect_count": 1.7026850032743943}
+{"Model": "llava-v1.5-7b", "Question-type": "direct", "correct_count": 0.04993508439029262, "correct_ge_count": 0.2496754219514631, "NA_count": 0.0, "incorrect_count": 99.70038949365825}
+{"Model": "llava-v1.5-13b", "Question-type": "direct", "correct_count": 0.0, "correct_ge_count": 0.04993508439029262, "NA_count": 0.0, "incorrect_count": 99.9500649156097}
+{"Model": "cogvlm-chat", "Question-type": "direct", "correct_count": 0.009987016878058523, "correct_ge_count": 0.26964945570758014, "NA_count": 0.629182063317687, "incorrect_count": 99.09118146409668}
+{"Model": "blip-flan-xl", "Question-type": "direct", "correct_count": 0.0, "correct_ge_count": 0.0, "NA_count": 0.0, "incorrect_count": 100.0}
+{"Model": "blip-flan-xxl", "Question-type": "direct", "correct_count": 0.0, "correct_ge_count": 0.0, "NA_count": 0.0, "incorrect_count": 100.0}
+{"Model": "minigpt4-vicuna-7B", "Question-type": "direct", "correct_count": 0.06990911814640967, "correct_ge_count": 0.8988315190252671, "NA_count": 13.132927194646959, "incorrect_count": 85.89833216818137}
+{"Model": "minigpt4-vicuna-13B", "Question-type": "direct", "correct_count": 0.009987016878058523, "correct_ge_count": 0.059922101268351145, "NA_count": 1.8575851393188854, "incorrect_count": 98.0725057425347}
+{"Model": "instruct-flant5xl", "Question-type": "direct", "correct_count": 0.0, "correct_ge_count": 0.0, "NA_count": 0.0, "incorrect_count": 100.0}
+{"Model": "instruct-flant5xxl", "Question-type": "direct", "correct_count": 0.0, "correct_ge_count": 0.0, "NA_count": 0.0, "incorrect_count": 100.0}
+{"Model": "instruct-vicuna7b", "Question-type": "direct", "correct_count": 9.93708179366823, "correct_ge_count": 11.784679916109058, "NA_count": 0.0, "incorrect_count": 78.27823829022272}
+{"Model": "instruct-vicuna13b", "Question-type": "direct", "correct_count": 0.0, "correct_ge_count": 0.0, "NA_count": 0.0, "incorrect_count": 100.0}
