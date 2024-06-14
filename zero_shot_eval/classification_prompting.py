@@ -30,12 +30,12 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.insert(1, parent_dir)
 ##################################################################################################################################################
 
-
 parser = argparse.ArgumentParser()
 parser.add_argument("--model", "-m", type=str, default='llava-v1.5-7b', help="multimodal-model, option: 'gpt-4v', 'llava-v1.5-7b', 'llava-v1.5-13b', 'cogvlm-grounding-generalist', 'cogvlm-chat'")
 parser.add_argument("--task_option", "-t", type=str, default='direct', help="task option: 'direct', 'selection' ")
 parser.add_argument("--num_queries", "-n", type=int, default=-1, help="number of images to query from dataset")
 parser.add_argument("--chunk_id", "-c", type=int, default=0, help="0, 1, 2, 3, 4, 5, 6, 7, 8, 9")
+parser.add_argument("--technique", "-q", type=str, default="contextual", help="technique option: 'contextual', 'dense-caption', 'cot', 'no-prompting'")
 
 # updated
 parser.add_argument("--dataset", "-d", type=str, default='fish-prompting', help="dataset option: 'fish-prompting','bird-prompting', 'butterfly-prompting' ")
@@ -60,28 +60,31 @@ elif args.server == "pda":
 #     organism = 'fish'
 
 if args.dataset == 'fish-prompting':
-    args.result_dir = root_dir+'VLM4Bio/results/fish-prompting'
+    args.result_dir = root_dir+'VLM4Bio/prompting_results/fish-prompting'
     images_list_path = root_dir+'VLM4Bio/datasets/Fish/metadata/imagelist_prompting.txt'
     image_dir = root_dir+'VLM4Bio/datasets/Fish/images'
     img_metadata_path = root_dir+'VLM4Bio/datasets/Fish/metadata/metadata_prompting.csv'
     organism = 'fish'
+    dense_caption_instruction = "Generate a detailed dense caption for the image of the fish, focusing on describing all visible anatomical details such as the shape and size of the fins, presence and absence of fins, color patterns, body shape, and any distinctive markings. Mention any specific features that are typically used in the classification of fish species. The goal is to use these detailed descriptions to help identify the scientific name of the fish."
 
 elif args.dataset == 'bird-prompting':
-    args.result_dir = root_dir+'VLM4Bio/results/bird-prompting'
+    args.result_dir = root_dir+'VLM4Bio/prompting_results/bird-prompting'
     images_list_path = root_dir+'VLM4Bio/datasets/Bird/metadata/imagelist_prompting.txt'
     image_dir = root_dir+'VLM4Bio/datasets/Bird/images'
     img_metadata_path = root_dir+'VLM4Bio/datasets/Bird/metadata/metadata_prompting.csv'
     organism = 'bird'
+    dense_caption_instruction = "Generate a detailed dense caption for the image of the bird, focusing on describing its physical characteristics, including the size, shape, and coloration of the feathers, beak, and eyes. Describe any distinctive markings or patterns on the body and head. The goal is to use these detailed descriptions to help identify the scientific name of the bird species."
 
 elif args.dataset == 'butterfly-prompting':
-    args.result_dir = root_dir+'VLM4Bio/results/butterfly-prompting'
+    args.result_dir = root_dir+'VLM4Bio/prompting_results/butterfly-prompting'
     images_list_path = root_dir+'VLM4Bio/datasets/Butterfly_10k/metadata/imagelist_prompting.txt'
     image_dir = root_dir+'VLM4Bio/datasets/Butterfly_10k/images'
     img_metadata_path = root_dir+'VLM4Bio/datasets/Butterfly_10k/metadata/metadata_prompting.csv'
     organism = 'butterfly'
+    dense_caption_instruction = "Generate a detailed dense caption for the image of the butterfly wings. Describe the size, shape, and color patterns of each wing, including any distinctive markings or symmetrical designs. Dense caption should also contain variations in color gradients and the presence of any spots, stripes, or other textural details. The objective is to use these detailed descriptions to assist in identifying the scientific name of the butterfly specimen."
 
 
-args.result_dir = os.path.join(args.result_dir, 'classification' ,args.task_option)
+args.result_dir = os.path.join(args.result_dir, args.technique, 'classification' ,args.task_option)
 
 os.makedirs(args.result_dir, exist_ok=True)
 print(args.result_dir)
@@ -93,6 +96,12 @@ if args.model == 'gpt-4v':
     
     from interface.gpt import GPT_4V
     model = GPT_4V(model_name="gpt-4v")
+    print(f'{args.model} loaded successfully.')
+
+if args.model == 'gpt-4o':
+    
+    from interface.gpt import GPT_4o
+    model = GPT_4o(model_name="gpt-4o")
     print(f'{args.model} loaded successfully.')
 
 if args.model in ['llava-v1.5-7b', 'llava-v1.5-13b']:
@@ -206,35 +215,131 @@ for idx in tqdm(range(args.num_queries)):
     options = batch['option_templates'][args.task_option] 
     answer_template = batch['answer_templates'][args.task_option] 
 
-    instruction = f"{questions} {options} {answer_template}."
+    if args.technique == "contextual":
+        instruction = f"Each biological species has a unique scientific name composed of two parts: the first for the genus and the second for the species within that genus.\n{questions} {options} {answer_template}."
+        instruction = instruction.replace('fish', organism)
 
-    # if args.task_option == 'direct':
+        model_output = model.prompt(
+            prompt_text= instruction,
+            image_path = batch['image_path'],
+        )
 
-    #     instruction = f"{batch['question_templates']['direct']} {batch['answer_templates']['direct']}."
 
-    # elif args.task_option == 'selection':
+        if model_output is None:
+            response = "No response received."
+        else:
+            response = model_output['response']
 
-    #     instruction = f"{batch['question_templates']['selection']} Options: {batch['answer_templates']['selection']}\nWrite the answer after writing 'The answer is: '."
+        result['question'] = instruction
+        result['target-class'] = target_species
+        
+        result["output"] = response
 
-    instruction = instruction.replace('fish', organism)
+        result["image-path"] = batch['image_path']
+        result["option-gt"] = batch['option_gt'][args.task_option]
 
-    model_output = model.prompt(
-        prompt_text= instruction,
-        image_path = batch['image_path'],
-    )
 
-    result['question'] = instruction
-    result['target-class'] = target_species
+    elif args.technique == "dense-caption":
+        model_output = model.prompt(
+            prompt_text= dense_caption_instruction,
+            image_path = batch['image_path'],
+        )
 
-    if model_output is None:
-        response = "No response received."
-    else:
-        response = model_output['response']
-    
-    result["output"] = response
+        if model_output is None:
+            dense_caption = ""
+        else:
+            dense_caption = model_output['response']
 
-    result["image-path"] = batch['image_path']
-    result["option-gt"] = batch['option_gt'][args.task_option]
+
+        answer_extract_instruction = f"{dense_caption}\nUse the above dense-caption and the image to answer the following question.\n{questions} \n{options} \nTherefore, the answer is: "
+        answer_extract_instruction = answer_extract_instruction.replace('fish', organism)
+
+        model_output = model.prompt(
+            prompt_text= answer_extract_instruction,
+            image_path = batch['image_path'],
+        )
+
+        if model_output is None:
+            response = "No response received."
+        else:
+            response = model_output['response']
+
+        result['question'] = answer_extract_instruction
+        result['target-class'] = target_species
+        result['dense-caption-instruction'] = dense_caption_instruction
+        result['answer-extract-instruction'] = answer_extract_instruction
+        
+        result["dense-caption"] = dense_caption
+        result["output"] = response
+
+        result["image-path"] = batch['image_path']
+        result["option-gt"] = batch['option_gt'][args.task_option]
+                
+
+    elif args.technique == "cot":
+        zero_shot_CoT_prompt = "Let's think step by step"
+        reasoning_extract_instruction = f"{questions} \n{options} \n{zero_shot_CoT_prompt}."
+        reasoning_extract_instruction = reasoning_extract_instruction.replace('fish', organism)
+
+        model_output = model.prompt(
+            prompt_text= reasoning_extract_instruction,
+            image_path = batch['image_path'],
+        )
+
+        if model_output is None:
+            reasoning = ""
+        else:
+            reasoning = model_output['response']
+
+        answer_extract_instruction = f"{questions} \n{options} \nPlease consider the following reasoning to formulate your answer: {reasoning} \nTherefore, the answer is: "
+        answer_extract_instruction = answer_extract_instruction.replace('fish', organism)
+
+        model_output = model.prompt(
+            prompt_text= answer_extract_instruction,
+            image_path = batch['image_path'],
+        )
+
+        if model_output is None:
+            response = "No response received."
+        else:
+            response = model_output['response']
+
+        result['question'] = answer_extract_instruction
+        result['target-class'] = target_species
+        result["reasoning-extract-instruction"] = reasoning_extract_instruction
+        result["answer-extract-instruction"] = answer_extract_instruction
+        
+        result["reasoning"] = reasoning
+        result["output"] = response
+
+        result["image-path"] = batch['image_path']
+        result["option-gt"] = batch['option_gt'][args.task_option]
+
+
+    elif args.technique == "no-prompting":
+        instruction = f"{questions} {options} {answer_template}."
+
+        instruction = instruction.replace('fish', organism)
+
+        model_output = model.prompt(
+            prompt_text= instruction,
+            image_path = batch['image_path'],
+        )
+
+        if model_output is None:
+            response = "No response received."
+        else:
+            response = model_output['response']
+        
+        result['question'] = instruction
+        result['target-class'] = target_species
+
+        result["output"] = response
+
+        result["image-path"] = batch['image_path']
+        result["option-gt"] = batch['option_gt'][args.task_option]
+
+    # writing the response and ground truths in json files
     writer.write(result)
     writer.close()
     writer = jsonlines.open(out_file_name, mode='a')
