@@ -78,7 +78,7 @@ elif args.dataset == 'bird-easy':
     organism = 'bird'
 
 elif args.dataset == 'bird-medium':
-    args.result_dir = osp.join(args.data_dir, 'bird-medium')
+    args.result_dir = osp.join(args.result_dir, 'bird-medium')
     images_list_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Bird/metadata/imagelist_medium.txt')
     image_dir = osp.join(args.data_dir, 'VLM4Bio/datasets/Bird/images')
     img_metadata_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Bird/metadata/metadata_medium.csv')
