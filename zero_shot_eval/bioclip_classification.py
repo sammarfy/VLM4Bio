@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--model", "-m", type=str, default='bioclip', help="")
 parser.add_argument("--task_option", "-t", type=str, default='direct', help="task option: 'direct', 'selection' ")
 parser.add_argument("--result_dir", "-o", type=str, default='results/', help="path to output")
-parser.add_argument("--data_dir", "-o", type=str, default='data/', help="path to output")
+parser.add_argument("--data_dir", "-o", type=str, default='data/', help="path to datasets")
 parser.add_argument("--num_queries", "-n", type=int, default=-1, help="number of images to query from dataset")
 parser.add_argument("--chunk_id", "-c", type=int, default=0, help="0, 1, 2, 3, 4, 5, 6, 7, 8, 9")
 parser.add_argument("--dataset", "-d", type=str, default='fish', help="dataset option: 'fish', 'bird', 'butterfly' ")
@@ -27,32 +27,31 @@ args = parser.parse_args()
 if args.dataset == 'fish':
 
     args.result_dir = osp.join(args.result_dir, 'fish')
-    images_list_path = osp.join(args.data_dir, 'datasets/Fish/metadata/imagelist_10k.txt')
-    image_dir = osp.join(args.data_dir, 'datasets/Fish/images')
-    img_metadata_path = osp.join(args.data_dir, 'datasets/Fish/metadata/metadata_10k.csv')
+    images_list_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Fish/metadata/imagelist_10k.txt')
+    image_dir = osp.join(args.data_dir, 'VLM4Bio/datasets/Fish/images')
+    img_metadata_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Fish/metadata/metadata_10k.csv')
     organism = 'fish'
 
 elif args.dataset == 'bird':
 
     args.result_dir = osp.join(args.result_dir, 'bird')
-    images_list_path = osp.join(args.data_dir, 'datasets/Bird/metadata/imagelist_10k.txt')
-    image_dir = osp.join(args.data_dir, 'datasets/Bird/images')
-    img_metadata_path = osp.join(args.data_dir, 'datasets/Bird/metadata/metadata_10k.csv')
+    images_list_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Bird/metadata/imagelist_10k.txt')
+    image_dir = osp.join(args.data_dir, 'VLM4Bio/datasets/Bird/images')
+    img_metadata_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Bird/metadata/metadata_10k.csv')
     organism = 'bird'
 
 elif args.dataset == 'butterfly':
 
     args.result_dir = osp.join(args.result_dir, 'butterfly')
-    images_list_path = osp.join(args.data_dir, 'datasets/Butterfly/metadata/imagelist_10k.txt')
-    image_dir = osp.join(args.data_dir, 'datasets/Butterfly/images')
-    img_metadata_path = osp.join(args.data_dir, 'datasets/Butterfly/metadata/metadata_10k.csv')
+    images_list_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Butterfly/metadata/imagelist_10k.txt')
+    image_dir = osp.join(args.data_dir, 'VLM4Bio/datasets/Butterfly/images')
+    img_metadata_path = osp.join(args.data_dir, 'VLM4Bio/datasets/Butterfly/metadata/metadata_10k.csv')
     organism = 'butterfly'
 
 
 args.result_dir = os.path.join(args.result_dir, 'classification' ,args.task_option)
 
 os.makedirs(args.result_dir, exist_ok=True)
-
 
 print("Arguments Provided: ", args)
 
