@@ -1,5 +1,5 @@
 # VLM4Bio
-[**🤗 HF Dataset**](https://huggingface.co/datasets/sammarfy/VLM4Bio)  |  [**License Information**](https://huggingface.co/datasets/sammarfy/VLM4Bio#licensing-information)
+[**🤗 HF Dataset**](https://huggingface.co/datasets/sammarfy/VLM4Bio)  |  [**🔒 License Information**](https://huggingface.co/datasets/sammarfy/VLM4Bio#licensing-information) | [**♠️ Dataset Card**](https://huggingface.co/datasets/sammarfy/VLM4Bio#dataset-card-for-vlm4bio)
 
 This repository contains the full pipeline and evaluation code for the paper **"VLM4Bio: A Benchmark Dataset to Evaluate Pretrained Vision-Language Models for Trait Discovery from Biological Images."**
 
