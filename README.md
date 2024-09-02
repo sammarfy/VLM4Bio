@@ -107,15 +107,16 @@ The evaluation notebook to visualize and compare the results are in the ```Evalu
 Please refer to our [dataset card citation section](https://huggingface.co/datasets/sammarfy/VLM4Bio#citation)
 
 **BibTeX:**
-```bibtex
-@misc{<ref_code>,
-  author = {M. Maruf and Arka Daw and Kazi Sajeed Mehrab and Harish Babu Manogaran and Abhilash Neog and Medha Sawhney and Mridul Khurana and James P. Balhoff and Yasin Bakis and Bahadir Altintas and Matthew J Thompson and Elizabeth G Campolongo and Josef C. Uyeda and Hilmar Lapp and Henry L. Bart Jr. and Paula M. Mabee and Yu Su and Wei-Lun Chao and Charles Stewart and Tanya Berger-Wolf and Wasila Dahdul and Anuj Karpatne},
-  title = {VLM4Bio: A Benchmark Dataset to Evaluate Pretrained Vision-Language Models for Trait Discovery from Biological Images.},
-  year = {2024},
-  url = {https://huggingface.co/datasets/sammarfy/VLM4Bio},
-  doi = {<doi once generated>},
-  publisher = {Hugging Face}
-}
 
+```bibtex
+@article{maruf2024vlm4bio,
+  title={VLM4Bio: A Benchmark Dataset to Evaluate Pretrained Vision-Language Models for Trait Discovery from Biological Images},
+  author={M. Maruf and Arka Daw and Kazi Sajeed Mehrab and Harish Babu Manogaran and Abhilash Neog and Medha Sawhney and Mridul Khurana and James P. Balhoff and Yasin Bakis and Bahadir Altintas and Matthew J. Thompson and Elizabeth G. Campolongo and Josef C. Uyeda and Hilmar Lapp and Henry L. Bart and Paula M. Mabee and Yu Su and Wei-Lun Chao and Charles Stewart and Tanya Berger-Wolf and Wasila Dahdul and Anuj Karpatne},
+  year={2024},
+  eprint={2408.16176},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2408.16176}, 
+}
 ```
 Please be sure to also cite the original data sources using the citations provided [here](https://huggingface.co/datasets/sammarfy/VLM4Bio/blob/main/metadata/data-bib.bib)
