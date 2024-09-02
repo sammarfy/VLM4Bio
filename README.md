@@ -107,6 +107,8 @@ The evaluation notebook to visualize and compare the results are in the ```Evalu
 Please refer to our [dataset card citation section](https://huggingface.co/datasets/sammarfy/VLM4Bio#citation)
 
 **BibTeX:**
+Please be sure to cite if you use the dataset.
+
 
 ```bibtex
 @article{maruf2024vlm4bio,
@@ -119,4 +121,3 @@ Please refer to our [dataset card citation section](https://huggingface.co/datas
   url={https://arxiv.org/abs/2408.16176}, 
 }
 ```
-Please be sure to also cite the original data sources using the citations provided [here](https://huggingface.co/datasets/sammarfy/VLM4Bio/blob/main/metadata/data-bib.bib)
