@@ -1,5 +1,5 @@
 # VLM4Bio
-[[**🤗 HF Dataset**](https://huggingface.co/datasets/sammarfy/VLM4Bio)]  |  [[**🔒 License Information**](https://huggingface.co/datasets/sammarfy/VLM4Bio#licensing-information)] | [[**♠️ Dataset Card**](https://huggingface.co/datasets/sammarfy/VLM4Bio#dataset-card-for-vlm4bio)]
+[[**🤗 HF Dataset**](https://huggingface.co/datasets/imageomics/VLM4Bio)]  |  [[**🔒 License Information**](https://huggingface.co/datasets/imageomics/VLM4Bio#licensing-information)] | [[**♠️ Dataset Card**](https://huggingface.co/datasets/imageomics/VLM4Bio#dataset-card-for-vlm4bio)]
 
 This repository contains the full pipeline and evaluation code for the paper **"[VLM4Bio: A Benchmark Dataset to Evaluate Pretrained Vision-Language Models for Trait Discovery from Biological Images.](https://arxiv.org/abs/2408.16176)"**
 
@@ -26,7 +26,7 @@ We conducted our evaluation on five scientific tasks relevant to biologists in t
 We used image collections of three taxonomic groups of organisms: Fish (contained $10K$ images), Bird (containing $10K$ images), and Butterfly (containing $10K$ images). The motivation for choosing these datasets is to evaluate the effectiveness of VLMs in answering biological questions over a range of bio-diverse organisms.
 
 ## Download Datasets
-The datasets can be downloaded from this [repository](https://huggingface.co/datasets/sammarfy/VLM4Bio):
+The datasets can be downloaded from this [repository](https://huggingface.co/datasets/imageomics/VLM4Bio):
 
 Download the dataset and order the files like the following in the ```data/``` folder.
 
@@ -104,10 +104,10 @@ Scripts regarding other tasks and evaluations have been provided in the ```scrip
 The evaluation notebook to visualize and compare the results are in the ```Evaluation/``` folder.
 
 ## Citation
-Please refer to our [dataset card citation section](https://huggingface.co/datasets/sammarfy/VLM4Bio#citation)
+Please refer to our [dataset card citation section](https://huggingface.co/datasets/imageomics/VLM4Bio#citation).
 
 **BibTeX:**
-Please be sure to cite if you use the dataset.
+Please be sure to cite the paper and _all_ dataset sources if you use the dataset.
 
 
 ```bibtex
