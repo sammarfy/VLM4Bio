@@ -107,7 +107,7 @@ The evaluation notebook to visualize and compare the results are in the ```Evalu
 Please refer to our [dataset card citation section](https://huggingface.co/datasets/imageomics/VLM4Bio#citation).
 
 **BibTeX:**
-Please be sure to cite the paper and dataset sources if you use the dataset.
+Please be sure to cite the paper and _all_ dataset sources if you use the dataset.
 
 
 ```bibtex
